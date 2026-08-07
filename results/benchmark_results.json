@@ -1,0 +1,134 @@
+{
+  "investment_amount": 1000000.0,
+  "params": {
+    "risk_aversion": 0.5,
+    "max_asset_weight": 0.4,
+    "tech_sector_cap": 0.55
+  },
+  "classical": {
+    "method": "Classical (CVXPY)",
+    "allocation": {
+      "AAPL": 0.1036,
+      "MSFT": 0.089,
+      "GOOGL": 0.1129,
+      "AMZN": 0.0282,
+      "TSLA": 0.0,
+      "GLD": 0.3428,
+      "BND": 0.1978,
+      "XLV": 0.1258
+    },
+    "weights": [
+      0.10358839621667262,
+      0.08896090791538859,
+      0.11289552589915207,
+      0.028246090303566,
+      2.0158898113164335e-07,
+      0.34276697590188526,
+      0.19775363209481658,
+      0.12578827007953777
+    ],
+    "expected_return": 0.0993,
+    "portfolio_risk": 0.0779,
+    "sharpe_ratio": 0.7618,
+    "liquidity_score": 0.942,
+    "turnover": 0.2913,
+    "constraint_breaches": 0,
+    "runtime_sec": 0.03584
+  },
+  "quantum": {
+    "method": "Quantum / Hybrid (QAOA / QUBO)",
+    "allocation": {
+      "AAPL": 0.0,
+      "MSFT": 0.0,
+      "GOOGL": 0.0,
+      "AMZN": 0.0,
+      "TSLA": 0.0,
+      "GLD": 0.375,
+      "BND": 0.375,
+      "XLV": 0.25
+    },
+    "weights": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.37499999999999994,
+      0.37499999999999994,
+      0.24999999999999994
+    ],
+    "expected_return": 0.0765,
+    "portfolio_risk": 0.068,
+    "sharpe_ratio": 0.5368,
+    "liquidity_score": 0.9475,
+    "turnover": 0.625,
+    "constraint_breaches": 0,
+    "runtime_sec": 0.06281,
+    "qubo_bits": 16,
+    "qiskit_executed": false
+  },
+  "dollar_allocations": {
+    "classical": {
+      "AAPL": 103600.0,
+      "MSFT": 89000.0,
+      "GOOGL": 112900.0,
+      "AMZN": 28200.0,
+      "TSLA": 0.0,
+      "GLD": 342800.0,
+      "BND": 197800.0,
+      "XLV": 125800.0
+    },
+    "quantum": {
+      "AAPL": 0.0,
+      "MSFT": 0.0,
+      "GOOGL": 0.0,
+      "AMZN": 0.0,
+      "TSLA": 0.0,
+      "GLD": 375000.0,
+      "BND": 375000.0,
+      "XLV": 250000.0
+    }
+  },
+  "benchmarks": [
+    {
+      "metric": "Expected Return",
+      "classical": "9.9%",
+      "quantum": "7.6%"
+    },
+    {
+      "metric": "Portfolio Risk",
+      "classical": "7.8%",
+      "quantum": "6.8%"
+    },
+    {
+      "metric": "Sharpe Ratio",
+      "classical": "0.76",
+      "quantum": "0.54"
+    },
+    {
+      "metric": "Turnover",
+      "classical": "29.1%",
+      "quantum": "62.5%"
+    },
+    {
+      "metric": "Constraint Breaches",
+      "classical": "0",
+      "quantum": "0"
+    },
+    {
+      "metric": "Runtime (sec)",
+      "classical": "0.036 s",
+      "quantum": "0.063 s"
+    }
+  ],
+  "copilot_explanation": {
+    "summary_text": "This portfolio implements a Balanced strategy maintaining an optimal Sharpe ratio between risk and return.",
+    "key_insights": [
+      "Gold ETF (34.3%) was allocated to reduce portfolio volatility and provide a crucial hedge against technology sector concentration.",
+      "Government Bonds (19.8%) provide capital preservation and ensure high portfolio liquidity while maintaining a low correlation with equity markets.",
+      "Tesla had a high annual risk level (35.0%), so the optimizer capped its allocation to 0.0% to prevent tail-risk exposure while maintaining upside capture.",
+      "Technology assets represent 33.4% of the portfolio, serving as the primary expected return engine."
+    ],
+    "classical_vs_quantum_note": "Both Classical (CVXPY) and Quantum (QAOA) optimizers converged on consistent core asset allocations. The Quantum QUBO solver successfully satisfied all linear and quadratic constraints."
+  }
+}

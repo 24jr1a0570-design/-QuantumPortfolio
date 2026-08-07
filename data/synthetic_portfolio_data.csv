@@ -1,0 +1,9 @@
+ticker,name,return,risk,sector,liquidity
+AAPL,Apple Inc.,0.145,0.21,Technology,0.95
+MSFT,Microsoft Corp.,0.152,0.227,Technology,0.95
+GOOGL,Alphabet Inc.,0.138,0.195,Technology,0.9
+AMZN,Amazon.com Inc.,0.148,0.24,Technology,0.9
+TSLA,Tesla Inc.,0.185,0.35,Technology,0.85
+GLD,Gold ETF,0.078,0.112,Commodity,0.95
+BND,Govt Bonds ETF,0.056,0.065,Finance,0.99
+XLV,Healthcare ETF,0.105,0.145,Healthcare,0.88

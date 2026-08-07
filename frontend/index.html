@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Portfolio Optimizer | Vanguard Quantum Internship</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="atom-icon">
+                    <i class="fa-solid fa-atom fa-spin-pulse"></i>
+                </div>
+                <div>
+                    <h1>QUANTUM PORTFOLIO OPTIMIZER</h1>
+                    <p class="subtitle">Quantum-Enhanced Multi-Asset Optimization & Co-Pilot Engine</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge badge-quantum"><i class="fa-solid fa-microchip"></i> Qiskit Aer QAOA</span>
+                <span class="badge badge-classical"><i class="fa-solid fa-calculator"></i> CVXPY Baseline</span>
+            </div>
+        </header>
+
+        <!-- Main Grid Layout -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: Inputs & Controls -->
+            <section class="card glass-card control-panel">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-sliders"></i> Investment Controls</h2>
+                </div>
+
+                <div class="input-group">
+                    <label for="investmentAmount">
+                        <span>Investment Capital (INR)</span>
+                        <span class="tooltip" title="Total funds available to allocate"><i class="fa-solid fa-circle-info"></i></span>
+                    </label>
+                    <div class="currency-input">
+                        <span class="prefix">₹</span>
+                        <input type="number" id="investmentAmount" value="1000000" step="50000" min="10000">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="riskPreference">Risk Preference</label>
+                        <span id="riskLabel" class="slider-val">Balanced (0.50)</span>
+                    </div>
+                    <input type="range" id="riskPreference" min="0.0" max="1.0" step="0.05" value="0.50">
+                    <div class="slider-ticks">
+                        <span>Low Risk</span>
+                        <span>Balanced</span>
+                        <span>High Return</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="slider-header">
+                        <label for="maxAllocation">Max Asset Allocation Cap</label>
+                        <span id="maxAllocLabel" class="slider-val">40%</span>
+                    </div>
+                    <input type="range" id="maxAllocation" min="0.15" max="0.60" step="0.05" value="0.40">
+                </div>
+
+                <button id="optimizeBtn" class="btn-primary">
+                    <span class="btn-text"><i class="fa-solid fa-bolt"></i> OPTIMIZE PORTFOLIO</span>
+                    <span class="btn-spinner hidden"><i class="fa-solid fa-circle-notch fa-spin"></i> Processing QUBO...</span>
+                </button>
+
+                <!-- Quick Summary Cards -->
+                <div class="metrics-summary">
+                    <div class="metric-box">
+                        <span class="metric-title">Classical Expected Return</span>
+                        <span class="metric-value text-cyan" id="classReturnVal">--</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-title">Quantum Expected Return</span>
+                        <span class="metric-value text-purple" id="quantReturnVal">--</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-title">Classical Sharpe Ratio</span>
+                        <span class="metric-value" id="classSharpeVal">--</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-title">Quantum Sharpe Ratio</span>
+                        <span class="metric-value" id="quantSharpeVal">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Allocation Table & Charts -->
+            <section class="results-panel">
+                <!-- Recommended Portfolio Table -->
+                <div class="card glass-card">
+                    <div class="card-header flex-between">
+                        <h2><i class="fa-solid fa-chart-pie"></i> Recommended Asset Allocation</h2>
+                        <div class="tab-switch">
+                            <button class="tab-btn active" data-tab="classical">CVXPY Classical</button>
+                            <button class="tab-btn" data-tab="quantum">Qiskit Quantum</button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="portfolio-table">
+                            <thead>
+                                <tr>
+                                    <th>Asset</th>
+                                    <th>Sector</th>
+                                    <th>Weight (%)</th>
+                                    <th>Capital Allocated</th>
+                                    <th>Explain</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allocationTableBody">
+                                <tr><td colspan="5" class="placeholder-text">Click "OPTIMIZE PORTFOLIO" to calculate optimal weights.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Classical vs Quantum Benchmarking -->
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-scale-balanced"></i> Classical vs Quantum Benchmarks</h2>
+                    </div>
+
+                    <div class="benchmark-grid">
+                        <div class="chart-container">
+                            <canvas id="allocationChart"></canvas>
+                        </div>
+                        
+                        <div class="benchmark-table-wrapper">
+                            <table class="benchmark-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Classical</th>
+                                        <th>Quantum/Hybrid</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="benchmarkTableBody">
+                                    <tr><td>Expected Return</td><td>--</td><td>--</td></tr>
+                                    <tr><td>Portfolio Risk</td><td>--</td><td>--</td></tr>
+                                    <tr><td>Turnover</td><td>--</td><td>--</td></tr>
+                                    <tr><td>Constraint Breaches</td><td>--</td><td>--</td></tr>
+                                    <tr><td>Runtime</td><td>--</td><td>--</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Co-Pilot -->
+                <div class="card glass-card copilot-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-robot text-purple"></i> PORTFOLIO CO-PILOT 🤖</h2>
+                        <span class="copilot-badge">AI Interpretability Engine</span>
+                    </div>
+
+                    <div class="copilot-content" id="copilotContent">
+                        <p class="summary-text" id="copilotSummary">
+                            "Gold and Government bonds reduce overall portfolio volatility, while technology assets contribute high expected return."
+                        </p>
+                        <ul class="insights-list" id="copilotInsights">
+                            <li><i class="fa-solid fa-shield-halved text-cyan"></i> Gold ETF included for negative correlation with growth assets.</li>
+                            <li><i class="fa-solid fa-chart-line text-purple"></i> Microsoft & Apple drive portfolio return expansion.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Quantum Internship Project • Quantum-Enhanced Multi-Asset Portfolio Optimization • Built with Qiskit, CVXPY & FastAPI</p>
+        </footer>
+    </div>
+
+    <!-- Modal for Asset Explanation -->
+    <div id="explainModal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle"><i class="fa-solid fa-lightbulb text-yellow"></i> Why this asset?</h3>
+            <p id="modalBody" class="modal-text">Explanation loading...</p>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

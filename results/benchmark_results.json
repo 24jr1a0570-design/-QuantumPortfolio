@@ -33,7 +33,7 @@
     "liquidity_score": 0.942,
     "turnover": 0.2913,
     "constraint_breaches": 0,
-    "runtime_sec": 0.03584
+    "runtime_sec": 0.03193
   },
   "quantum": {
     "method": "Quantum / Hybrid (QAOA / QUBO)",
@@ -63,7 +63,7 @@
     "liquidity_score": 0.9475,
     "turnover": 0.625,
     "constraint_breaches": 0,
-    "runtime_sec": 0.06281,
+    "runtime_sec": 0.09892,
     "qubo_bits": 16,
     "qiskit_executed": false
   },
@@ -117,8 +117,8 @@
     },
     {
       "metric": "Runtime (sec)",
-      "classical": "0.036 s",
-      "quantum": "0.063 s"
+      "classical": "0.032 s",
+      "quantum": "0.099 s"
     }
   ],
   "copilot_explanation": {
